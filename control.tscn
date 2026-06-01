@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://der6rmdxdmpxd"]
+
+[ext_resource type="Script" uid="uid://0sogn56joj5d" path="res://control.gd" id="1_0fbet"]
+
+[node name="Control" type="Control" unique_id=798007674]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0fbet")
+
+[node name="TickTimer" type="Timer" parent="." unique_id=1874007769]
+autostart = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=429421221]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CPULabel" type="Label" parent="VBoxContainer" unique_id=1561000203]
+layout_mode = 2
+
+[node name="GraphBG" type="ColorRect" parent="VBoxContainer" unique_id=325936047]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="CPUGraph" type="Line2D" parent="VBoxContainer/GraphBG" unique_id=1145325091]
+width = 2.0
+default_color = Color(1, 0.28627452, 1, 1)
+
+[node name="Memory" type="Label" parent="VBoxContainer" unique_id=691869020]
+layout_mode = 2
+
+[node name="MemBar" type="ProgressBar" parent="VBoxContainer" unique_id=688946933]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="GamePanel" type="PanelContainer" parent="VBoxContainer" unique_id=1823440257]
+layout_mode = 2
+
+[node name="GameBox" type="VBoxContainer" parent="VBoxContainer/GamePanel" unique_id=1378904870]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/GamePanel/GameBox" unique_id=1155806486]
+layout_mode = 2
+
+[node name="RateLabel" type="Label" parent="VBoxContainer/GamePanel/GameBox" unique_id=955668013]
+layout_mode = 2
+
+[node name="UpgradeButton" type="Button" parent="VBoxContainer/GamePanel/GameBox" unique_id=443689941]
+layout_mode = 2
