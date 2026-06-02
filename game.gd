@@ -143,6 +143,10 @@ func _read_hardware_stats():
 				# Apply the real data to the UI labels
 				current_cpu = data["cpu"]
 				current_mem = data["mem"]
+				
+func _open_tech_tree():
+	# Opens tech tree
+	
 
 # Triggers when the game window is closed
 func _notification(what):
