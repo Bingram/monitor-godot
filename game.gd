@@ -5,11 +5,14 @@ const SAVE_PATH = "user://idle_miner_save.json"
 # Game State
 var data_packets: int = 0
 var multiplier: int = 1
+var current_multiplier: float = 1.0
 var upgrade_cost: int = 500
 
-# Simulated Hardware State
+# Hardware State
 var current_cpu: float = 0.0
 var current_mem: float = 0.0
+var current_rate: float = 0.0
+
 var cpu_history: Array = []
 const MAX_HISTORY = 60
 
@@ -39,27 +42,20 @@ func _ready():
 	# 3. Load Save Data
 	load_game()
 	update_ui()
-	## Connect the timer to our update function
-	#tick_timer.timeout.connect(_read_hardware_stats)
-	#
-	## Do an initial read immediately
-	#_read_hardware_stats()
 
 func _on_tick():
-	## --- Simulate Hardware Data ---
-	## In a real app, this would be psutil.cpu_percent()
-	## Here, we create a wandering value between 5% and 95%
-	#current_cpu = clamp(current_cpu + randf_range(-15.0, 15.0), 5.0, 95.0)
-	#current_mem = clamp(current_mem + randf_range(-2.0, 2.0), 30.0, 80.0)
 	_read_hardware_stats()
 	
 	# --- Game Logic ---
-	var earned_this_tick = int(current_cpu * multiplier)
+	var earned_this_tick = get_rate()
 	data_packets += earned_this_tick
 	
 	# --- Graph History ---
 	cpu_history.pop_front()
 	cpu_history.append(current_cpu)
+	
+	# Update score rate
+	update_rate(int(current_cpu * (current_multiplier + current_mem*.1)))
 	
 	update_ui()
 
@@ -70,8 +66,8 @@ func update_ui():
 	mem_bar.value = current_mem
 	
 	score_label.text = "Data Packets: " + str(data_packets)
-	var rate = int(current_cpu * multiplier)
-	rate_label.text = "Mining Rate: %d / sec (Multiplier: x%d)" % [rate, multiplier]
+	var rate = get_rate()
+	rate_label.text = "Mining Rate: %d / sec (Multiplier: x%d)" % [rate, current_multiplier]
 	
 	# Update Button
 	upgrade_btn.text = "Buy Overclock (Cost: %d)" % upgrade_cost
@@ -94,11 +90,23 @@ func draw_graph():
 		var y = height - (cpu_history[i] / 100.0 * height)
 		cpu_graph.add_point(Vector2(x, y))
 
+func get_rate():
+	return current_rate
+	
+func update_rate(rate):
+	current_rate = rate
+	
+func get_multiplier():
+	return current_multiplier
+	
+func update_multiplier(mult):
+	current_multiplier = mult
+
 func _on_upgrade_pressed():
 	if data_packets >= upgrade_cost:
 		data_packets -= upgrade_cost
-		multiplier += 1
-		upgrade_cost = int(upgrade_cost * 1.5)
+		current_multiplier += 1
+		upgrade_cost = int(upgrade_cost * 1.1)
 		update_ui()
 
 # ==========================================
@@ -107,7 +115,7 @@ func _on_upgrade_pressed():
 func save_game():
 	var save_dict = {
 		"data_packets": data_packets,
-		"multiplier": multiplier,
+		"multiplier": current_multiplier,
 		"upgrade_cost": upgrade_cost
 	}
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -122,7 +130,7 @@ func load_game():
 		if json.parse(content) == OK:
 			var data = json.data
 			data_packets = data.get("data_packets", 0)
-			multiplier = data.get("multiplier", 1)
+			current_multiplier = data.get("multiplier", 1)
 			upgrade_cost = data.get("upgrade_cost", 500)
 			
 func _read_hardware_stats():
@@ -146,7 +154,11 @@ func _read_hardware_stats():
 				
 func _open_tech_tree():
 	# Opens tech tree
-	
+	get_tree().change_scene_to_file("res://tech_tree.tscn")
+
+func _return_to_game():
+	# Return to game window
+	get_tree().change_scene_to_file("res://game_screen.tscn")
 
 # Triggers when the game window is closed
 func _notification(what):

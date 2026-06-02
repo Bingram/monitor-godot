@@ -14,6 +14,7 @@ offset_left = 489.0
 offset_top = 99.0
 offset_right = 584.0
 offset_bottom = 170.0
+text = "Continue"
 
 [node name="New" type="Button" parent="." unique_id=1101122959]
 layout_mode = 0
@@ -21,6 +22,7 @@ offset_left = 489.0
 offset_top = 223.0
 offset_right = 584.0
 offset_bottom = 294.0
+text = "New Game"
 
 [node name="Load" type="Button" parent="." unique_id=2049953661]
 layout_mode = 0
@@ -28,6 +30,7 @@ offset_left = 484.0
 offset_top = 327.0
 offset_right = 579.0
 offset_bottom = 398.0
+text = "Load"
 
 [node name="Exit" type="Button" parent="." unique_id=1998349501]
 layout_mode = 0
@@ -35,3 +38,4 @@ offset_left = 479.0
 offset_top = 446.0
 offset_right = 574.0
 offset_bottom = 517.0
+text = "Exit"

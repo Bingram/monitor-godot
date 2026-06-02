@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b641c03suovm4"]
 
+[ext_resource type="Script" uid="uid://bdcns07y5oic1" path="res://tech_tree.gd" id="1_syhq4"]
+
 [node name="Tech Tree" type="Control" unique_id=1539795159]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_syhq4")
 
 [node name="Cores" type="Button" parent="." unique_id=22507137]
 layout_mode = 0
@@ -14,6 +17,7 @@ offset_left = 81.0
 offset_top = 216.0
 offset_right = 176.0
 offset_bottom = 287.0
+text = "Cores"
 
 [node name="Threads" type="Button" parent="." unique_id=1007833113]
 layout_mode = 0
@@ -21,6 +25,7 @@ offset_left = 162.0
 offset_top = 432.0
 offset_right = 257.0
 offset_bottom = 503.0
+text = "Threads"
 
 [node name="NetworkActivity" type="Button" parent="." unique_id=1647276734]
 layout_mode = 0
@@ -28,6 +33,7 @@ offset_left = 468.0
 offset_top = 176.0
 offset_right = 563.0
 offset_bottom = 247.0
+text = "Net"
 
 [node name="DiskActivity" type="Button" parent="." unique_id=112591393]
 layout_mode = 0
@@ -35,6 +41,7 @@ offset_left = 382.0
 offset_top = 342.0
 offset_right = 477.0
 offset_bottom = 413.0
+text = "Disk"
 
 [node name="GPUActivity" type="Button" parent="." unique_id=1234483398]
 layout_mode = 0
@@ -42,6 +49,7 @@ offset_left = 723.0
 offset_top = 260.0
 offset_right = 818.0
 offset_bottom = 331.0
+text = "GPU"
 
 [node name="RAMActivity" type="Button" parent="." unique_id=394755054]
 layout_mode = 0
@@ -49,3 +57,14 @@ offset_left = 631.0
 offset_top = 417.0
 offset_right = 726.0
 offset_bottom = 488.0
+text = "RAM"
+
+[node name="return" type="Button" parent="." unique_id=829941034]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 29.0
+offset_right = 170.0
+offset_bottom = 100.0
+text = "EXIT"
+
+[connection signal="pressed" from="return" to="." method="_retrun"]
