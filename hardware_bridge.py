@@ -21,8 +21,13 @@ try:
 	        "threads": psutil.cpu_count(),
             "mem_percent": psutil.virtual_memory().percent,
             "mem_stats": psutil.virtual_memory(),
-            "disk": psutil.disk_partitions()
+            "disk_count": len(psutil.disk_partitions()),
+            "net_stats": psutil.net_io_counters(),
+            "temps": psutil.sensors_temperatures(fahrenheit=False)
         }
+        # may need to breakdown stats further and label accordingly
+        # in future use more granular stat info about processes
+        # for now keep system stats as agnostic for broader compatibility
         
         # Write them to the JSON file
         with open(save_path, "w") as f:
