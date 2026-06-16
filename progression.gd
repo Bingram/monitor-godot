@@ -1,9 +1,34 @@
 extends Node
 
-var points: int = 1
-var has_cpu_cores: bool = false
-var has_threads: bool = false
-var has_ram: bool = false
+# Game State
+var data_packets: int = 0
+var multiplier: int = 1
+var current_multiplier: float = 1.0
+var upgrade_cost: int = 500
+
+# Hardware State
+var current_cpu: float = 0.0
+var current_mem: float = 0.0
+var current_rate: float = 0.0
+var cpu_cores: int = 1
+var cpu_threads: int = 1
+
+var cpu_history: Array = []
+const MAX_HISTORY = 60
+
+var tech_unlocked_list = {
+	GameEnums.Tech.CPU_CORES: false,
+	GameEnums.Tech.THREADS: false,
+	GameEnums.Tech.CPU: true,
+	GameEnums.Tech.CPU_FREQ: false,
+	GameEnums.Tech.RAM: true,
+	GameEnums.Tech.RAM_STATS: false,
+	GameEnums.Tech.NET: false,
+	GameEnums.Tech.NET_STATS: false,
+	GameEnums.Tech.DISK: false,
+	GameEnums.Tech.GPU: false,
+	GameEnums.Tech.TEMPS: false
+}
 
 signal tech_unlocked(tech_name)
 
@@ -15,22 +40,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-func _has_tech(tech_name: String):
-	pass
-	#need lookup logic for has a tech unlocked so we can have single CRUD methods
+func _has_tech(tech_name: GameEnums.Tech):
+	var state = tech_unlocked_list[tech_name]
+	return state
 	
-func _unlock_tech(tech_name: String):
-	#need a better system for this
-	#enum is the first idea, lots of repeated stuff here, could just have it pull a file
-	#Add to the file as we go along and never touch this logic again
+func _unlock_tech(tech_name: GameEnums.Tech):
+	if _has_tech(tech_name):
+		tech_unlocked.emit(tech_name)
+	else:
+		tech_unlocked_list[tech_name] = true
+		tech_unlocked.emit(tech_name)
 	
-	#logic to handle the the unlock
-	if tech_name == "cores":
-		has_cpu_cores = true
-		tech_unlocked.emit("cores")
-	if tech_name == "threads":
-		has_threads = true
-		tech_unlocked.emit("threads")
-	if tech_name == "ram":
-		has_ram = true
-		tech_unlocked.emit("ram")

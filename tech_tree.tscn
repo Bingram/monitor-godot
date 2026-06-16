@@ -67,7 +67,10 @@ offset_right = 170.0
 offset_bottom = 100.0
 text = "EXIT"
 
-[connection signal="pressed" from="Cores" to="." method="_on_cores_button_pressed"]
-[connection signal="pressed" from="Threads" to="." method="_on_threads_button_pressed"]
-[connection signal="pressed" from="RAMActivity" to="." method="_on_button_pressed" binds= ["ram"]]
+[connection signal="pressed" from="Cores" to="." method="_on_button_pressed" binds= ["CPU_CORES"]]
+[connection signal="pressed" from="Threads" to="." method="_on_button_pressed" binds= ["THREADS"]]
+[connection signal="pressed" from="NetworkActivity" to="." method="_on_button_pressed" binds= ["NET"]]
+[connection signal="pressed" from="DiskActivity" to="." method="_on_button_pressed" binds= ["DISK"]]
+[connection signal="pressed" from="GPUActivity" to="." method="_on_button_pressed" binds= ["GPU"]]
+[connection signal="pressed" from="RAMActivity" to="." method="_on_button_pressed" binds= ["RAM"]]
 [connection signal="pressed" from="return" to="." method="_return"]
