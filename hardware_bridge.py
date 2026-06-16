@@ -14,9 +14,14 @@ try:
         # Gather the real stats
         data = {
             "cpu": psutil.cpu_percent(interval=None),
+            "cpu_each": psutil.cpu_percent(interval=1, percpu=True),
+            "cpu_stats": psutil.cpu_stats(),
+            "cpu_freq": psutil.cpu_freq(),
 	        "cores": psutil.cpu_count(logical=False),
-	        "threads": psutil.cpu_count(), 
-            "mem": psutil.virtual_memory().percent
+	        "threads": psutil.cpu_count(),
+            "mem_percent": psutil.virtual_memory().percent,
+            "mem_stats": psutil.virtual_memory(),
+            "disk": psutil.disk_partitions()
         }
         
         # Write them to the JSON file
