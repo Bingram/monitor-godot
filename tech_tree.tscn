@@ -67,4 +67,6 @@ offset_right = 170.0
 offset_bottom = 100.0
 text = "EXIT"
 
+[connection signal="pressed" from="Cores" to="." method="_on_cores_button_pressed"]
+[connection signal="pressed" from="Threads" to="." method="_on_threads_button_pressed"]
 [connection signal="pressed" from="return" to="." method="_retrun"]

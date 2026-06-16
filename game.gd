@@ -12,6 +12,8 @@ var upgrade_cost: int = 500
 var current_cpu: float = 0.0
 var current_mem: float = 0.0
 var current_rate: float = 0.0
+var cpu_cores: int = 1
+var cpu_threads: int = 1
 
 var cpu_history: Array = []
 const MAX_HISTORY = 60
@@ -26,6 +28,8 @@ const MAX_HISTORY = 60
 @onready var rate_label = $VBoxContainer/GamePanel/GameBox/RateLabel
 @onready var upgrade_btn = $VBoxContainer/GamePanel/GameBox/UpgradeButton
 @onready var tick_timer = $TickTimer
+@onready var core_label = $VBoxContainer/Cores
+@onready var threads_label = $VBoxContainer/Threads
 
 # Godot uses "res://" to look in the root folder of the project
 const STATS_FILE = "res://hardware_stats.json"
@@ -55,7 +59,7 @@ func _on_tick():
 	cpu_history.append(current_cpu)
 	
 	# Update score rate
-	update_rate(int(current_cpu * (current_multiplier + current_mem*.1)))
+	update_rate(int(current_cpu * (current_multiplier + cpu_cores + cpu_threads + current_mem*.1)))
 	
 	update_ui()
 
@@ -72,6 +76,11 @@ func update_ui():
 	# Update Button
 	upgrade_btn.text = "Buy Overclock (Cost: %d)" % upgrade_cost
 	upgrade_btn.disabled = data_packets < upgrade_cost
+	
+	if Progression.has_cpu_cores:
+		core_label.text = "Cores: %d" % cpu_cores
+	if Progression.has_threads:
+		threads_label.text = "Threads: %d" % cpu_threads
 	
 	draw_graph()
 
@@ -151,6 +160,12 @@ func _read_hardware_stats():
 				# Apply the real data to the UI labels
 				current_cpu = data["cpu"]
 				current_mem = data["mem"]
+				if Progression.has_cpu_cores:
+					cpu_cores = data["cores"]
+				if Progression.has_threads:
+					cpu_threads = data["threads"]
+				
+				
 				
 func _open_tech_tree():
 	# Opens tech tree

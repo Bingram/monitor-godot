@@ -57,4 +57,12 @@ layout_mode = 2
 action_mode = 0
 text = "Tech Tree"
 
+[node name="Cores" type="Label" parent="VBoxContainer" unique_id=1192210902]
+layout_mode = 2
+text = "False"
+
+[node name="Threads" type="Label" parent="VBoxContainer" unique_id=1542917832]
+layout_mode = 2
+text = "False"
+
 [connection signal="pressed" from="VBoxContainer/TechTree" to="." method="_open_tech_tree"]

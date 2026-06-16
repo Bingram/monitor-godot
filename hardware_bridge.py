@@ -13,7 +13,9 @@ try:
     while True:
         # Gather the real stats
         data = {
-            "cpu": psutil.cpu_percent(interval=None), 
+            "cpu": psutil.cpu_percent(interval=None),
+	        "cores": psutil.cpu_count(logical=False),
+	        "threads": psutil.cpu_count(), 
             "mem": psutil.virtual_memory().percent
         }
         
