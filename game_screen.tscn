@@ -65,4 +65,8 @@ text = "False"
 layout_mode = 2
 text = "False"
 
+[node name="Ram" type="Label" parent="VBoxContainer" unique_id=1037893739]
+layout_mode = 2
+text = "False"
+
 [connection signal="pressed" from="VBoxContainer/TechTree" to="." method="_open_tech_tree"]

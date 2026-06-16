@@ -30,6 +30,7 @@ const MAX_HISTORY = 60
 @onready var tick_timer = $TickTimer
 @onready var core_label = $VBoxContainer/Cores
 @onready var threads_label = $VBoxContainer/Threads
+@onready var ram_label = $VBoxContainer/Ram
 
 # Godot uses "res://" to look in the root folder of the project
 const STATS_FILE = "res://hardware_stats.json"
@@ -81,6 +82,8 @@ func update_ui():
 		core_label.text = "Cores: %d" % cpu_cores
 	if Progression.has_threads:
 		threads_label.text = "Threads: %d" % cpu_threads
+	if Progression.has_ram:
+		ram_label.text = "Ram: True"
 	
 	draw_graph()
 
@@ -152,6 +155,8 @@ func _read_hardware_stats():
 		
 		# Parse the text into a Godot Dictionary
 		var json = JSON.new()
+		#attempt to parse file content
+		#if error returned, it won't load the data
 		var error = json.parse(content)
 		
 		if error == OK:
@@ -164,6 +169,10 @@ func _read_hardware_stats():
 					cpu_cores = data["cores"]
 				if Progression.has_threads:
 					cpu_threads = data["threads"]
+		else:
+			prints("error encoutnered")
+			#dosomething
+		
 				
 				
 				
@@ -173,6 +182,7 @@ func _open_tech_tree():
 
 func _return_to_game():
 	# Return to game window
+	# TODO: some elements aren't updating when going back to main screen
 	get_tree().change_scene_to_file("res://game_screen.tscn")
 
 # Triggers when the game window is closed

@@ -69,4 +69,5 @@ text = "EXIT"
 
 [connection signal="pressed" from="Cores" to="." method="_on_cores_button_pressed"]
 [connection signal="pressed" from="Threads" to="." method="_on_threads_button_pressed"]
-[connection signal="pressed" from="return" to="." method="_retrun"]
+[connection signal="pressed" from="RAMActivity" to="." method="_on_button_pressed" binds= ["ram"]]
+[connection signal="pressed" from="return" to="." method="_return"]
