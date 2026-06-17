@@ -10,7 +10,7 @@ func _process(delta: float) -> void:
 
 func _return():
 	# Return to game window
-	get_tree().change_scene_to_packed(load("res://game_screen.tscn"))
+	get_tree().change_scene_to_file("res://game_screen.tscn")
 
 # need a better way to unlock a tech on button press
 # rather than a single function for each button

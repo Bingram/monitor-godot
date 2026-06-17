@@ -47,7 +47,10 @@ func _ready():
 	upgrade_btn.pressed.connect(_on_upgrade_pressed)
 	
 	# 3. Load Save Data
-	load_game()
+	if not loaded:
+		load_game()
+	else:
+		update_rate()
 	update_ui()
 
 func _on_tick():
@@ -62,8 +65,7 @@ func _on_tick():
 	Progression.cpu_history.append(Progression.current_cpu)
 	
 	# Update score rate
-	update_rate(int(Progression.current_cpu * (Progression.current_multiplier + Progression.cpu_cores + Progression.cpu_threads + Progression.current_mem*.1)))
-	
+	update_rate()
 	update_ui()
 
 func update_ui():
@@ -72,6 +74,7 @@ func update_ui():
 	mem_label.text = "Memory Usage: %d%%" % Progression.current_mem
 	mem_bar.value = Progression.current_mem
 	
+	update_rate()
 	score_label.text = "Data Packets: " + str(Progression.data_packets)
 	var rate = get_rate()
 	rate_label.text = "Mining Rate: %d / sec (Multiplier: x%d)" % [rate, Progression.current_multiplier]
@@ -107,8 +110,8 @@ func draw_graph():
 func get_rate():
 	return Progression.current_rate
 	
-func update_rate(rate):
-	Progression.current_rate = rate
+func update_rate():
+	Progression.current_rate = int(Progression.current_cpu * (Progression.current_multiplier + Progression.cpu_cores + Progression.cpu_threads + Progression.current_mem*.1))
 	
 func get_multiplier():
 	return Progression.current_multiplier
