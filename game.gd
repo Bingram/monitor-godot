@@ -17,7 +17,7 @@ const SAVE_PATH = "user://idle_miner_save.json"
 #
 #var cpu_history: Array = []
 #const MAX_HISTORY = 60
-var loaded: bool = false
+#var loaded: bool = false
 
 # UI Node References
 @onready var cpu_label = $VBoxContainer/CPULabel
@@ -47,7 +47,7 @@ func _ready():
 	upgrade_btn.pressed.connect(_on_upgrade_pressed)
 	
 	# 3. Load Save Data
-	if not loaded:
+	if not Progression.game_loaded:
 		load_game()
 	else:
 		update_rate()
@@ -145,12 +145,12 @@ func load_game():
 		var content = file.get_as_text()
 		var json = JSON.new()
 		if json.parse(content) == OK:
-			if not loaded:
+			if not Progression.game_loaded:
 				var data = json.data
 				Progression.data_packets = data.get("data_packets", 0)
 				Progression.current_multiplier = data.get("multiplier", 1)
 				Progression.upgrade_cost = data.get("upgrade_cost", 500)
-				loaded = true
+				Progression.game_loaded = true
 			
 func _read_hardware_stats():
 	# Check if Python has created the file yet
@@ -179,18 +179,14 @@ func _read_hardware_stats():
 		else:
 			prints("error encoutnerd")
 			#dosomething
-		
-				
-				
-				
+
 func _open_tech_tree():
 	# Opens tech tree
-	get_tree().change_scene_to_file("res://tech_tree.tscn")
+	Progression.goto_scene("res://tech_tree.tscn")
 
 func _return_to_game():
 	# Return to game window
-	# TODO: some elements aren't updating when going back to main screen
-	get_tree().change_scene_to_file("res://game_screen.tscn")
+	Progression.goto_scene("res://game_screen.tscn")
 
 # Triggers when the game window is closed
 func _notification(what):

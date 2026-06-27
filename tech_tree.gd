@@ -10,10 +10,7 @@ func _process(delta: float) -> void:
 
 func _return():
 	# Return to game window
-	get_tree().change_scene_to_file("res://game_screen.tscn")
-
-# need a better way to unlock a tech on button press
-# rather than a single function for each button
+	Progression.goto_scene("res://game_screen.tscn")
 
 func _on_button_pressed(tech_name: String):
 	var tech_enum = GameEnums.Tech[tech_name]
