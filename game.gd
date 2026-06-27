@@ -111,7 +111,27 @@ func get_rate():
 	return Progression.current_rate
 	
 func update_rate():
-	Progression.current_rate = int(Progression.current_cpu * (Progression.current_multiplier + Progression.cpu_cores + Progression.cpu_threads + Progression.current_mem*.1))
+	var cpu_cores = 1
+	var cpu_threads = 1
+	var current_cpu = Progression.current_cpu
+	var current_mult = Progression.current_multiplier
+	var current_mem = Progression.current_mem
+	
+	# Check unlocks
+	if Progression._has_tech(GameEnums.Tech.CPU_CORES):
+		cpu_cores = Progression.cpu_cores
+	if Progression._has_tech(GameEnums.Tech.THREADS):
+		cpu_threads = Progression.cpu_threads
+					
+	Progression.current_rate = int(
+		current_cpu * (
+			current_mult + 
+			cpu_cores + 
+			cpu_threads + 
+			current_mem *
+			.1
+		)
+	)
 	
 func get_multiplier():
 	return Progression.current_multiplier
@@ -172,10 +192,8 @@ func _read_hardware_stats():
 				# Apply the real data to the UI labels
 				Progression.current_cpu = data["cpu"]
 				Progression.current_mem = data["mem_percent"]
-				if Progression._has_tech(GameEnums.Tech.CPU_CORES):
-					Progression.cpu_cores = data["cores"]
-				if Progression._has_tech(GameEnums.Tech.THREADS):
-					Progression.cpu_threads = data["threads"]
+				Progression.cpu_cores = data["cores"]
+				Progression.cpu_threads = data["threads"]
 		else:
 			prints("error encoutnerd")
 			#dosomething
