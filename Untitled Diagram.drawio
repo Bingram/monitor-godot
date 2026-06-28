@@ -1,0 +1,28 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="sQPbvNQt9lNIms6qEHd7">
+    <mxGraphModel dx="694" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Game Screen" vertex="1">
+          <mxGeometry height="60" width="120" x="120" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-3" edge="1" parent="1" source="DIJwIW8t2oRDx49H_0ad-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="DIJwIW8t2oRDx49H_0ad-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Graph Window" vertex="1">
+          <mxGeometry height="60" width="120" x="240" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="CPU" vertex="1">
+          <mxGeometry height="60" width="120" x="410" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="RAM" vertex="1">
+          <mxGeometry height="60" width="120" x="410" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="DIJwIW8t2oRDx49H_0ad-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="CPU" vertex="1">
+          <mxGeometry height="60" width="120" x="410" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

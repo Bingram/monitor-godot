@@ -20,18 +20,18 @@ const SAVE_PATH = "user://idle_miner_save.json"
 #var loaded: bool = false
 
 # UI Node References
-@onready var cpu_label = $VBoxContainer/CPULabel
-@onready var cpu_graph = $VBoxContainer/GraphBG/CPUGraph
-@onready var graph_bg = $VBoxContainer/GraphBG
-@onready var mem_label = $VBoxContainer/Memory
-@onready var mem_bar = $VBoxContainer/MemBar
-@onready var score_label = $VBoxContainer/GamePanel/GameBox/ScoreLabel
-@onready var rate_label = $VBoxContainer/GamePanel/GameBox/RateLabel
-@onready var upgrade_btn = $VBoxContainer/GamePanel/GameBox/UpgradeButton
+@onready var cpu_label = $GameWindow/System/CPULabel
+@onready var cpu_graph = $GameWindow/Graph/GraphBG/CPUGraph
+@onready var graph_bg = $GameWindow/Graph/GraphBG
+@onready var mem_label = $GameWindow/System/Memory
+@onready var mem_bar = $GameWindow/Graph/MemBar
+@onready var score_label = $GameWindow/System/GamePanel/GameBox/ScoreLabel
+@onready var rate_label = $GameWindow/System/GamePanel/GameBox/RateLabel
+@onready var upgrade_btn = $GameWindow/System/GamePanel/GameBox/UpgradeButton
 @onready var tick_timer = $TickTimer
-@onready var core_label = $VBoxContainer/Cores
-@onready var threads_label = $VBoxContainer/Threads
-@onready var ram_label = $VBoxContainer/Ram
+@onready var core_label = $GameWindow/System/Cores
+@onready var threads_label = $GameWindow/System/Threads
+@onready var ram_label = $GameWindow/System/Ram
 
 # Godot uses "res://" to look in the root folder of the project
 const STATS_FILE = "res://hardware_stats.json"
