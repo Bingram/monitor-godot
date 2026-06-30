@@ -3,17 +3,14 @@ extends Control
 const SAVE_PATH = "user://idle_miner_save.json"
 
 ## Game State
-#var data_packets: int = 0
-#var multiplier: int = 1
-#var current_multiplier: float = 1.0
 #var upgrade_cost: int = 500
 #
 ## Hardware State
 #var current_cpu: float = 0.0
 #var current_mem: float = 0.0
 #var current_rate: float = 0.0
-#var cpu_cores: int = 1
-#var cpu_threads: int = 1
+var cpu_cores: int = 1
+var cpu_threads: int = 1
 #
 #var cpu_history: Array = []
 #const MAX_HISTORY = 60
@@ -24,7 +21,7 @@ const SAVE_PATH = "user://idle_miner_save.json"
 @onready var cpu_graph = $GameWindow/Graph/GraphBG/CPUGraph
 @onready var graph_bg = $GameWindow/Graph/GraphBG
 @onready var mem_label = $GameWindow/System/Memory
-@onready var mem_bar = $GameWindow/Graph/MemBar
+@onready var mem_bar = $GameWindow/System/MemBar
 @onready var score_label = $GameWindow/System/GamePanel/GameBox/ScoreLabel
 @onready var rate_label = $GameWindow/System/GamePanel/GameBox/RateLabel
 @onready var upgrade_btn = $GameWindow/System/GamePanel/GameBox/UpgradeButton
@@ -51,6 +48,15 @@ func _ready():
 		load_game()
 	else:
 		update_rate()
+	
+	if Progression.cpu_graphs.size() < 1:
+		Progression.cpu_graphs.append(cpu_graph)
+		
+	#add multiple graphs once core unlocked
+	if $GameWindow/Graph.get_children().size() < cpu_cores:
+		for x in cpu_cores:
+			add_graph()
+		
 	update_ui()
 
 func _on_tick():
@@ -90,11 +96,20 @@ func update_ui():
 	if Progression._has_tech(GameEnums.Tech.RAM):
 		ram_label.text = "Ram: %s" % Progression._has_tech(GameEnums.Tech.RAM) 
 	
-	draw_graph()
+	for g in Progression.cpu_graphs:
+		draw_graph(g)
 
-func draw_graph():
+func add_graph():
+	# create graph
+	var graph = graph_bg.duplicate()
+	
+	# add graph
+	Progression.cpu_graphs.append(graph)
+	#$GameWindow/Graph.add_child(graph)
+
+func draw_graph(graph):
 	# Clear the old line
-	cpu_graph.clear_points()
+	graph.clear_points()
 	
 	var width = graph_bg.custom_minimum_size.x
 	var height = graph_bg.custom_minimum_size.y
@@ -105,14 +120,12 @@ func draw_graph():
 		var x = i * step_x
 		# Invert Y so 100% is at the top (0) and 0% is at the bottom (height)
 		var y = height - (Progression.cpu_history[i] / 100.0 * height)
-		cpu_graph.add_point(Vector2(x, y))
+		graph.add_point(Vector2(x, y))
 
 func get_rate():
 	return Progression.current_rate
 	
 func update_rate():
-	var cpu_cores = 1
-	var cpu_threads = 1
 	var current_cpu = Progression.current_cpu
 	var current_mult = Progression.current_multiplier
 	var current_mem = Progression.current_mem

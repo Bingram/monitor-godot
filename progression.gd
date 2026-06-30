@@ -19,6 +19,7 @@ var cpu_cores: int = 1
 var cpu_threads: int = 1
 
 var cpu_history: Array = []
+var cpu_graphs: Array = []
 const MAX_HISTORY = 60
 
 var tech_unlocked_list = {

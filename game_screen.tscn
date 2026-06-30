@@ -16,10 +16,14 @@ autostart = true
 
 [node name="GameWindow" type="HBoxContainer" parent="." unique_id=1395687906]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1151.0
+offset_bottom = 647.0
 
 [node name="System" type="VBoxContainer" parent="GameWindow" unique_id=1396448984]
+layout_mode = 2
+
+[node name="MemBar" type="ProgressBar" parent="GameWindow/System" unique_id=688946933]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="GamePanel" type="PanelContainer" parent="GameWindow/System" unique_id=1823440257]
@@ -37,6 +41,11 @@ layout_mode = 2
 
 [node name="UpgradeButton" type="Button" parent="GameWindow/System/GamePanel/GameBox" unique_id=443689941]
 layout_mode = 2
+
+[node name="TechTree" type="Button" parent="GameWindow/System/GamePanel/GameBox" unique_id=440550204]
+layout_mode = 2
+action_mode = 0
+text = "Tech Tree"
 
 [node name="Memory" type="Label" parent="GameWindow/System" unique_id=691869020]
 layout_mode = 2
@@ -58,6 +67,7 @@ text = "False"
 
 [node name="Graph" type="VBoxContainer" parent="GameWindow" unique_id=429421221]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="GraphBG" type="ColorRect" parent="GameWindow/Graph" unique_id=325936047]
 custom_minimum_size = Vector2(400, 100)
@@ -67,13 +77,4 @@ layout_mode = 2
 width = 2.0
 default_color = Color(1, 0.28627452, 1, 1)
 
-[node name="MemBar" type="ProgressBar" parent="GameWindow/Graph" unique_id=688946933]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="TechTree" type="Button" parent="GameWindow/Graph" unique_id=440550204]
-layout_mode = 2
-action_mode = 0
-text = "Tech Tree"
-
-[connection signal="pressed" from="GameWindow/Graph/TechTree" to="." method="_open_tech_tree"]
+[connection signal="pressed" from="GameWindow/System/GamePanel/GameBox/TechTree" to="." method="_open_tech_tree"]
