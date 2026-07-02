@@ -53,8 +53,9 @@ func _ready():
 		Progression.cpu_graphs.append(cpu_graph)
 		
 	#add multiple graphs once core unlocked
-	if $GameWindow/Graph.get_children().size() < cpu_cores:
-		for x in cpu_cores:
+	var graph_count = get_node("GameWindow/Graph/GraphBG").get_children().size()
+	if graph_count < cpu_cores:
+		for x in cpu_cores - graph_count:
 			add_graph()
 		
 	update_ui()
@@ -101,17 +102,20 @@ func update_ui():
 
 func add_graph():
 	# create graph
-	var graph = graph_bg.duplicate()
+	var graph = cpu_graph.duplicate()
 	
 	# add graph
 	Progression.cpu_graphs.append(graph)
-	#$GameWindow/Graph.add_child(graph)
+	get_node("GameWindow/Graph/GraphBG").add_child(graph)
 
 func draw_graph(graph):
 	# Clear the old line
-	graph.clear_points()
+	if graph:
+		graph.clear_points()
+	else:
+		pass
 	
-	var width = graph_bg.custom_minimum_size.x
+	var width = get_node("GameWindow/Graph").get_size().x
 	var height = graph_bg.custom_minimum_size.y
 	var step_x = width / float(Progression.MAX_HISTORY - 1)
 	
